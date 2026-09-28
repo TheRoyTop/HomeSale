@@ -1,0 +1,133 @@
+---
+import '../styles/global.css';
+---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encuentra tu Propiedad Ideal</title>
+    <!-- FontAwesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Hero -->
+    <header class="hero">
+        <span class="hero-badge"><i class="fa-solid fa-house"></i> Asesoría inmobiliaria</span>
+        <h1>Tu nuevo hogar <span>te espera</span></h1>
+        <p>Trato directo y sin intermediarios. Casas, terrenos y departamentos a tu medida.</p>
+        <div class="hero-actions">
+            <a href="#" class="hero-btn hero-btn--main" onclick="contactoDirecto(event)">
+                <i class="fa-brands fa-whatsapp"></i> Hablar con un asesor
+            </a>
+            <a href="#propiedades" class="hero-btn hero-btn--ghost">Ver propiedades</a>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- Formulario Embudo hacia WhatsApp -->
+        <div class="funnel-card">
+            <h2><i class="fa-solid fa-filter"></i> ¿Qué estás buscando?</h2>
+
+            <div class="form-group">
+                <label for="tipo">Tipo de Propiedad</label>
+                <select id="tipo">
+                    <option value="Casa">Casa</option>
+                    <option value="Departamento">Departamento</option>
+                    <option value="Terreno">Terreno / Lote</option>
+                    <option value="Local Comercial">Local Comercial</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="operacion">Operación</label>
+                <select id="operacion">
+                    <option value="Comprar">Comprar</option>
+                    <option value="Alquilar">Alquilar</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="presupuesto">Presupuesto Estimado</label>
+                <input type="text" id="presupuesto" placeholder="Ej. $80,000 / L. 1,500,000">
+            </div>
+
+            <button type="button" class="btn-whatsapp" onclick="enviarAWhatsApp()">
+                <i class="fa-brands fa-whatsapp"></i> Consultar por WhatsApp
+            </button>
+        </div>
+
+        <!-- Beneficios Rápidos -->
+        <div class="benefits">
+            <div class="benefit-item">
+                <i class="fa-solid fa-check-circle"></i> Trato Directo
+            </div>
+            <div class="benefit-item">
+                <i class="fa-solid fa-clock"></i> Respuesta Inmediata
+            </div>
+        </div>
+
+        <!-- Propiedad Destacada -->
+        <h3 class="section-title" id="propiedades">Destacado de la Semana</h3>
+        <div class="property-card">
+            <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=600&q=80" alt="Casa" class="property-img">
+            <div class="property-content">
+                <div class="property-price">$120,000</div>
+                <div class="property-title">Hermosa Casa Residencial moderna</div>
+                <div class="property-features">
+                    <span><i class="fa-solid fa-bed"></i> 3 Hab</span>
+                    <span><i class="fa-solid fa-bath"></i> 2 Baños</span>
+                    <span><i class="fa-solid fa-car"></i> 2 Est.</span>
+                </div>
+                <a href="#" class="btn-whatsapp btn-whatsapp--small" onclick="consultarPropiedad('Casa Residencial Moderna - $120,000')">
+                    <i class="fa-brands fa-whatsapp"></i> Preguntar por esta propiedad
+                </a>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 Agente Inmobiliario. Todos los derechos reservados.</p>
+        </footer>
+
+    </div>
+
+    <!-- Botón Flotante Directo -->
+    <a href="#" class="float-whatsapp" onclick="contactoDirecto(event)" title="Contactar por WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Lógica JavaScript para Redirección a WhatsApp -->
+    <script is:inline>
+        // CONFIGURACIÓN: Reemplaza con tu número de WhatsApp (incluye código de país, sin '+' ni espacios)
+        const NUMERO_WHATSAPP = "50492090910";
+
+        function enviarAWhatsApp() {
+            const tipo = document.getElementById('tipo').value;
+            const operacion = document.getElementById('operacion').value;
+            const presupuesto = document.getElementById('presupuesto').value || "No especificado";
+
+            // Mensaje estructurado que llegará a tu WhatsApp
+            const texto = `¡Hola! Me interesa obtener información sobre propiedades:%0A` +
+                          `• *Tipo:* ${tipo}%0A` +
+                          `• *Operación:* ${operacion}%0A` +
+                          `• *Presupuesto:* ${presupuesto}%0A%0A` +
+                          `¿Me podría brindar más detalles?`;
+
+            window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${texto}`, '_blank');
+        }
+
+        function consultarPropiedad(propiedad) {
+            const texto = `¡Hola! Quiero consultar disponibilidad sobre la propiedad: *${propiedad}*`;
+            window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${texto}`, '_blank');
+        }
+
+        function contactoDirecto(e) {
+            e.preventDefault();
+            const texto = `¡Hola! Quisiera hablar con un asesor sobre propiedades disponibles.`;
+            window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${texto}`, '_blank');
+        }
+    </script>
+</body>
+                                                      </html>

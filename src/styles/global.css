@@ -1,0 +1,300 @@
+:root {
+    --primary: #25D366; /* Verde WhatsApp */
+    --primary-dark: #128C7E;
+    --secondary: #1E293B; /* Azul oscuro elegante */
+    --accent: #2563EB; /* Azul de acento */
+    --bg: #F8FAFC;
+    --card-bg: #FFFFFF;
+    --text: #334155;
+    --text-light: #64748B;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    padding-bottom: 80px; /* Espacio para el botón flotante */
+}
+
+/* Header / Hero */
+.hero {
+    position: relative;
+    text-align: center;
+    color: white;
+    padding: 3rem 1.25rem 4.5rem;
+    background:
+        linear-gradient(180deg, rgba(15, 23, 42, 0.55) 0%, rgba(15, 23, 42, 0.92) 100%),
+        url('https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=900&q=80') center / cover;
+    border-bottom-left-radius: 32px;
+    border-bottom-right-radius: 32px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(6px);
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.hero h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 0.75rem;
+}
+
+.hero h1 span {
+    color: var(--primary);
+}
+
+.hero p {
+    font-size: 0.95rem;
+    color: #E2E8F0;
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+.hero-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    max-width: 320px;
+    margin: 1.5rem auto 0;
+}
+
+.hero-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1rem;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+}
+
+.hero-btn--main {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+}
+
+.hero-btn--ghost {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: white;
+}
+
+/* Contenedor Principal */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem;
+}
+
+/* Embudo / Formulario Card */
+.funnel-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+    margin-top: -3rem; /* Efecto solapado con el header */
+    position: relative;
+    z-index: 10;
+}
+
+.funnel-card h2 {
+    font-size: 1.25rem;
+    color: var(--secondary);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    color: var(--text);
+}
+
+.form-group select,
+.form-group input {
+    width: 100%;
+    padding: 0.85rem;
+    border: 1px solid #E2E8F0;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    background-color: #F8FAFC;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-group select:focus,
+.form-group input:focus {
+    border-color: var(--accent);
+    background-color: #FFF;
+}
+
+/* Botón de Acción Principal */
+.btn-whatsapp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    background-color: var(--primary);
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: 1rem;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn-whatsapp:active {
+    transform: scale(0.98);
+}
+
+.btn-whatsapp:hover {
+    background-color: var(--primary-dark);
+}
+
+.btn-whatsapp--small {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+}
+
+/* Sección de Propiedad Destacada */
+.section-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--secondary);
+    margin-bottom: 1rem;
+}
+
+.property-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    margin-bottom: 1.5rem;
+}
+
+.property-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.property-content {
+    padding: 1.25rem;
+}
+
+.property-price {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: 0.25rem;
+}
+
+.property-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.property-features {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    border-top: 1px solid #F1F5F9;
+    padding-top: 0.75rem;
+}
+
+.property-features span {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+/* Botón Flotante Fijo */
+.float-whatsapp {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--primary);
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    text-decoration: none;
+    z-index: 100;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+    70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+/* Beneficios cortos */
+.benefits {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.benefit-item {
+    background: #EFF6FF;
+    padding: 0.85rem;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+}
+
+footer {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin-top: 2rem;
+}
