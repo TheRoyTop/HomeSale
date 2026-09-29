@@ -1,0 +1,72 @@
+---
+import '../../styles/global.css';
+import { propiedades, NUMERO_WHATSAPP } from '../../data/propiedades.js';
+
+export function getStaticPaths() {
+  return propiedades.map((p) => ({
+    params: { slug: p.slug },
+    props: { p },
+  }));
+}
+
+const { p } = Astro.props;
+
+const urlPagina = new URL(`/propiedades/${p.slug}/`, Astro.site).href;
+const imagen = p.foto.startsWith('http') ? p.foto : new URL(p.foto, Astro.site).href;
+const precioTexto = p.mostrarPrecio ? p.precio : 'Precio a consultar';
+
+const mensaje = encodeURIComponent(
+  `¡Hola! Quiero consultar disponibilidad sobre la propiedad: *${p.titulo}* (${precioTexto})`
+);
+const wa = `https://wa.me/${NUMERO_WHATSAPP}?text=${mensaje}`;
+---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{p.titulo} | {precioTexto}</title>
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content={`${p.titulo} - ${precioTexto}`}>
+    <meta property="og:description" content={p.descripcion}>
+    <meta property="og:image" content={imagen}>
+    <meta property="og:url" content={urlPagina}>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="section-title"><i class="fa-solid fa-arrow-left"></i> Volver</a>
+
+        <div class="property-card">
+            <img src={p.foto} alt={p.titulo} class="property-img">
+            <div class="property-content">
+                <div class="property-price-row">
+                    <div class="property-price">{precioTexto}</div>
+                    <span class={`property-status ${p.estado === 'vendida' ? 'property-status--vendida' : 'property-status--venta'}`}>
+                        {p.estado === 'vendida' ? 'Vendida' : 'En venta'}
+                    </span>
+                </div>
+                {p.financiamiento && (
+                    <div class="property-financing"><i class="fa-solid fa-hand-holding-dollar"></i> Financiamiento disponible</div>
+                )}
+                <div class="property-title">{p.titulo}</div>
+                <p style="margin-bottom: 1rem;">{p.descripcion}</p>
+                <div class="property-features">
+                    <span><i class="fa-solid fa-bed"></i> {p.habitaciones} Hab</span>
+                    <span><i class="fa-solid fa-bath"></i> {p.banos} Baños</span>
+                    <span><i class="fa-solid fa-car"></i> {p.estacionamientos} Est.</span>
+                </div>
+                <a href={wa} target="_blank" class="btn-whatsapp">
+                    <i class="fa-brands fa-whatsapp"></i> Preguntar por esta propiedad
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <a href={wa} target="_blank" class="float-whatsapp" title="Contactar por WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+</body>
+</html>

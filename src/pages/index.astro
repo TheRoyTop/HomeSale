@@ -1,5 +1,14 @@
 ---
 import '../styles/global.css';
+import { propiedades, NUMERO_WHATSAPP } from '../data/propiedades.js';
+
+function linkWhatsApp(p) {
+  const precioTexto = p.mostrarPrecio ? p.precio : 'Precio a consultar';
+  const texto = encodeURIComponent(
+    `¡Hola! Quiero consultar disponibilidad sobre la propiedad: *${p.titulo}* (${precioTexto})\n\n${p.foto}`
+  );
+  return `https://wa.me/${NUMERO_WHATSAPP}?text=${texto}`;
+}
 ---
 <!DOCTYPE html>
 <html lang="es">
@@ -7,12 +16,10 @@ import '../styles/global.css';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Encuentra tu Propiedad Ideal</title>
-    <!-- FontAwesome para iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <!-- Hero -->
     <header class="hero">
         <span class="hero-badge"><i class="fa-solid fa-house"></i> Asesoría inmobiliaria</span>
         <h1>Tu nuevo hogar <span>te espera</span></h1>
@@ -27,7 +34,6 @@ import '../styles/global.css';
 
     <div class="container">
 
-        <!-- Formulario Embudo hacia WhatsApp -->
         <div class="funnel-card">
             <h2><i class="fa-solid fa-filter"></i> ¿Qué estás buscando?</h2>
 
@@ -59,7 +65,6 @@ import '../styles/global.css';
             </button>
         </div>
 
-        <!-- Beneficios Rápidos -->
         <div class="benefits">
             <div class="benefit-item">
                 <i class="fa-solid fa-check-circle"></i> Trato Directo
@@ -69,23 +74,38 @@ import '../styles/global.css';
             </div>
         </div>
 
-        <!-- Propiedad Destacada -->
-        <h3 class="section-title" id="propiedades">Destacado de la Semana</h3>
-        <div class="property-card">
-            <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=600&q=80" alt="Casa" class="property-img">
-            <div class="property-content">
-                <div class="property-price">$120,000</div>
-                <div class="property-title">Hermosa Casa Residencial moderna</div>
-                <div class="property-features">
-                    <span><i class="fa-solid fa-bed"></i> 3 Hab</span>
-                    <span><i class="fa-solid fa-bath"></i> 2 Baños</span>
-                    <span><i class="fa-solid fa-car"></i> 2 Est.</span>
+        <h3 class="section-title" id="propiedades">Propiedades Disponibles</h3>
+
+        {propiedades.map((p) => (
+            <div class="property-card">
+                <img src={p.foto} alt={p.titulo} class="property-img">
+                <div class="property-content">
+                    <div class="property-price-row">
+                        <div class="property-price">{p.mostrarPrecio ? p.precio : 'Precio a consultar'}</div>
+                        <span class={`property-status ${p.estado === 'vendida' ? 'property-status--vendida' : 'property-status--venta'}`}>
+                            {p.estado === 'vendida' ? 'Vendida' : 'En venta'}
+                        </span>
+                    </div>
+                    {p.financiamiento && (
+                        <div class="property-financing"><i class="fa-solid fa-hand-holding-dollar"></i> Financiamiento disponible</div>
+                    )}
+                    <div class="property-title">{p.titulo}</div>
+                    <div class="property-features">
+                        <span><i class="fa-solid fa-bed"></i> {p.habitaciones} Hab</span>
+                        <span><i class="fa-solid fa-bath"></i> {p.banos} Baños</span>
+                        <span><i class="fa-solid fa-car"></i> {p.estacionamientos} Est.</span>
+                    </div>
+                    <div class="property-actions">
+                        <a href={linkWhatsApp(p)} target="_blank" rel="noopener" class="btn-whatsapp btn-whatsapp--small">
+                            <i class="fa-brands fa-whatsapp"></i> Preguntar
+                        </a>
+                        <a href={`/propiedades/${p.slug}/`} class="btn-secondary">
+                            <i class="fa-solid fa-circle-info"></i> Detalles
+                        </a>
+                    </div>
                 </div>
-                <a href="#" class="btn-whatsapp btn-whatsapp--small" onclick="consultarPropiedad('Casa Residencial Moderna - $120,000')">
-                    <i class="fa-brands fa-whatsapp"></i> Preguntar por esta propiedad
-                </a>
             </div>
-        </div>
+        ))}
 
         <footer>
             <p>&copy; 2026 Agente Inmobiliario. Todos los derechos reservados.</p>
@@ -93,14 +113,11 @@ import '../styles/global.css';
 
     </div>
 
-    <!-- Botón Flotante Directo -->
     <a href="#" class="float-whatsapp" onclick="contactoDirecto(event)" title="Contactar por WhatsApp">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 
-    <!-- Lógica JavaScript para Redirección a WhatsApp -->
     <script is:inline>
-        // CONFIGURACIÓN: Reemplaza con tu número de WhatsApp (incluye código de país, sin '+' ni espacios)
         const NUMERO_WHATSAPP = "50492090910";
 
         function enviarAWhatsApp() {
@@ -108,18 +125,12 @@ import '../styles/global.css';
             const operacion = document.getElementById('operacion').value;
             const presupuesto = document.getElementById('presupuesto').value || "No especificado";
 
-            // Mensaje estructurado que llegará a tu WhatsApp
             const texto = `¡Hola! Me interesa obtener información sobre propiedades:%0A` +
                           `• *Tipo:* ${tipo}%0A` +
                           `• *Operación:* ${operacion}%0A` +
                           `• *Presupuesto:* ${presupuesto}%0A%0A` +
                           `¿Me podría brindar más detalles?`;
 
-            window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${texto}`, '_blank');
-        }
-
-        function consultarPropiedad(propiedad) {
-            const texto = `¡Hola! Quiero consultar disponibilidad sobre la propiedad: *${propiedad}*`;
             window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${texto}`, '_blank');
         }
 
@@ -130,4 +141,4 @@ import '../styles/global.css';
         }
     </script>
 </body>
-                                                      </html>
+  </html>
