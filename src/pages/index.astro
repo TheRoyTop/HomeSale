@@ -4,8 +4,9 @@ import { propiedades, NUMERO_WHATSAPP } from '../data/propiedades.js';
 
 function linkWhatsApp(p) {
   const precioTexto = p.mostrarPrecio ? p.precio : 'Precio a consultar';
+  const imagen = p.foto.startsWith('http') ? p.foto : new URL(p.foto, Astro.site).href;
   const texto = encodeURIComponent(
-    `¡Hola! Quiero consultar disponibilidad sobre la propiedad: *${p.titulo}* (${precioTexto})\n\n${p.foto}`
+    `¡Hola! Quiero consultar disponibilidad sobre la propiedad: *${p.titulo}* (${precioTexto})\n\n${imagen}`
   );
   return `https://wa.me/${NUMERO_WHATSAPP}?text=${texto}`;
 }
